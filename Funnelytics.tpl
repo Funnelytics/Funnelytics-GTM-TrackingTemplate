@@ -10,6 +10,7 @@ ___INFO___
 
 {
   "displayName": "Funnelytics",
+  "categories": ["ANALYTICS", "CONVERSIONS"],
   "description": "Deploy the Funnelytics tracking script or track user actions on your website using the Funnelytics-hosted deployment.",
   "securityGroups": [],
   "id": "cvt_temp_public_id",
