@@ -1,0 +1,5 @@
+homepage: "https://funnelytics.io"
+documentation: "https://hub.funnelytics.io/s/action-tracking/"
+versions:
+  - sha: c7fd7250600da55adcea64a19dbccdd244c49564
+    changeNotes: Initial release.
