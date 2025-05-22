@@ -10,7 +10,6 @@ ___INFO___
 
 {
   "displayName": "Funnelytics",
-  "categories": ["ANALYTICS", "CONVERSIONS"],
   "description": "Deploy the Funnelytics tracking script or track user actions on your website using the Funnelytics-hosted deployment.",
   "securityGroups": [],
   "id": "cvt_temp_public_id",
@@ -484,6 +483,39 @@ ___TEMPLATE_PARAMETERS___
     ],
     "displayName": "Funnelytics Base Script waiting Function",
     "alwaysInSummary": true
+  },
+  {
+    "type": "CHECKBOX",
+    "name": "autoTracking",
+    "checkboxText": "Action Auto Tracking",
+    "simpleValueType": true,
+    "alwaysInSummary": true,
+    "defaultValue": true,
+    "enablingConditions": [
+      {
+        "paramName": "baseScript",
+        "paramValue": "baseScript",
+        "type": "EQUALS"
+      }
+    ],
+    "displayName": "Tracking Script Settings",
+    "help": "Track automatically events like: Scroll, Link Clicks, Button Clicks, Video Views and HTML Forms Submissions"
+  },
+  {
+    "type": "CHECKBOX",
+    "name": "anonymizeUsers",
+    "checkboxText": "Anonymize User",
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "autoTracking",
+        "paramValue": true,
+        "type": "EQUALS"
+      }
+    ],
+    "alwaysInSummary": true,
+    "defaultValue": true,
+    "help": "If this setting is enabled, the Name and Email of users collected through Forms tracked with Auto Tracking will \u003cstrong\u003enot\u003c/strong\u003e be sent to Funnelytics."
   }
 ]
 
@@ -502,11 +534,24 @@ const callLater = require('callLater');
 //Funnelytics variables declaration
 const projectId = data.projectId;
 const funnelytics = copyFromWindow('funnelytics'); 
+const autoTracking = data.autoTracking;
+const anonymizeUsers = data.anonymizeUsers;
+
 
 //Initialize funnelytics and trigger gtmOnSuccess callback
 const funnelyticsInit = () => {
-    callInWindow('funnelytics.init', projectId, false);	
-  return data.gtmOnSuccess();
+    if(!autoTracking){
+    callInWindow('funnelytics.init', projectId, true, []);
+    return data.gtmOnSuccess();
+    }
+    
+    if(!anonymizeUsers){
+    callInWindow('funnelytics.init', projectId, true, [], {"anonymiseUsers":false});
+    return data.gtmOnSuccess();
+    }
+    
+    callInWindow('funnelytics.init', projectId, true, [], {});
+    return data.gtmOnSuccess();
 };
 
 
