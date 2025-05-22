@@ -1,5 +1,9 @@
 homepage: "https://funnelytics.io"
 documentation: "https://hub.funnelytics.io/s/action-tracking/"
 versions:
+#Latest version
+  - sha: 09a3eb8fba4e90b12a20253d036497f60f0508b1
+    changeNotes: "Added support for Action Auto Tracking and User Anonymization for Auto Tracking."
+#Older versions
   - sha: b5b95bab2941508ade1d1796131b5c886fe5eca8
     changeNotes: Initial release.
